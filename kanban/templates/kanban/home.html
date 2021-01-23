@@ -3,11 +3,8 @@
 
 -->
 
-
-
-
-
 <!doctype html>
+{% extends "kanban/base.html" %}
 <html lang="ja">
   <head>
     <!-- Required meta tags -->
@@ -41,8 +38,12 @@
       </nav>
     </header>
     <main>
-      <h1>サインアップ完了</h1>
-      <p>サインアップが完了しました。</p>
+      {% block content %}
+      <div class="container">
+        <h1>サインアップ完了</h1>
+        <p>サインアップが完了しました。</p>
+      </div>
+      {% endblock %}
     </main>
 
     <!-- Optional JavaScript -->
