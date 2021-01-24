@@ -1,3 +1,11 @@
+"""viewのページ
+テンプレートをビューで指定する
+django.shortcuts MVCの複数のレベルを「橋渡し」するためのヘルパ関数やクラスを定義
+
+"""
+
+
+
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -7,17 +15,19 @@ from django.views.generic import DetailView, UpdateView
 
 from .forms import UserForm
 
+#render(request, template_name, context)はテンプレートに値（変数）を埋め込んだ結果をHttpResponseに変換する関数
 
 def index(request):
     return render(request, "kanban/index.html")
 
-
+#デコレーターでログインを呼び出し
 @login_required
 def home(request):
     return render(request, "kanban/home.html")
 
 
 def signup(request):
+    #POSTの場合
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -25,6 +35,7 @@ def signup(request):
             login(request, user_instance)
             return redirect("kanban:home")
     else:
+        #フォームクラスをインスタンス化
         form = UserCreationForm()
         context = {
             "form": form
