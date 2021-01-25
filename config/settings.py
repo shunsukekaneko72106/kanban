@@ -119,8 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+#ログインした後のリダイレクト先のURL
 LOGIN_REDIRECT_URL = 'kanban:home'
+#ログアウトした後のリダイレクト先
 LOGOUT_REDIRECT_URL = 'kanban:index'
 LOGIN_URL = 'login'
 

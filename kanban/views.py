@@ -4,6 +4,9 @@ django.shortcuts MVCの複数のレベルを「橋渡し」するためのヘル
 
 """
 
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 
 
 from django.contrib.auth import login
@@ -27,10 +30,12 @@ def home(request):
 
 
 def signup(request):
-    #POSTの場合
+    #POSTの場合（リクエストが送られた場合）
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
+        #バリデーションを行う
         if form.is_valid():
+            #データベースに登録する
             user_instance = form.save()
             login(request, user_instance)
             return redirect("kanban:home")
@@ -40,6 +45,7 @@ def signup(request):
         context = {
             "form": form
         }
+    #context に辞書として定義し render() に渡す
     return render(request, 'kanban/signup.html', context)
 
 
