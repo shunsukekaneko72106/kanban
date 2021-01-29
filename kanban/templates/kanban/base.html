@@ -1,3 +1,7 @@
+<!--
+ヘッダーのHTMLファイル
+-->
+
 <!doctype html>
 <html lang="ja">
   <head>
@@ -21,15 +25,16 @@
           <ul class="navbar-nav mr-auto">
           </ul>
           <ul class="navbar-nav">
-
-            <!-- ここから追記 -->
+            <!-- ログインしている場合 -->
             {% if request.user.is_authenticated %}
             <span class="navbar-text">
               こんにちは {{ request.user.username }} さん
             </span>
             <li class="nav-item">
+              <!-- URLを指定 -->
               <a class="nav-link" href="{% url 'logout' %}">ログアウト</a>
             </li>
+            <!-- ログインしていない場合 -->
             {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'login' %}">ログイン</a>
