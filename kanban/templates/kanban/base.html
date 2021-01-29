@@ -28,7 +28,9 @@
             <!-- ログインしている場合 -->
             {% if request.user.is_authenticated %}
             <span class="navbar-text">
-              こんにちは {{ request.user.username }} さん
+              <li class="nav-item">
+              <a class="nav-link" href="{% url 'kanban:users_detail' request.user.pk %}">{{ request.user.username }}</a>
+            </li>
             </span>
             <li class="nav-item">
               <!-- URLを指定 -->
