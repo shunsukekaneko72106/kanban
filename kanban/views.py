@@ -5,18 +5,15 @@ django.shortcuts MVCの複数のレベルを「橋渡し」するためのヘル
 """
 
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-
-
-from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, resolve_url
 from django.views.generic import DetailView, UpdateView
 
 from .forms import UserForm
+from .mixins import OnlyYouMixin
 
 #render(request, template_name, context)はテンプレートに値（変数）を埋め込んだ結果をHttpResponseに変換する関数
 
@@ -49,12 +46,12 @@ def signup(request):
     return render(request, 'kanban/signup.html', context)
 
 
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin,DetailView):
     model = User
     template_name = "kanban/users/detail.html"
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(OnlyYouMixin,UpdateView):
     model = User
     template_name = "kanban/users/update.html"
     form_class = UserForm
