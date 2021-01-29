@@ -5,11 +5,6 @@ django.shortcuts MVCの複数のレベルを「橋渡し」するためのヘル
 """
 
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-
-
-from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
