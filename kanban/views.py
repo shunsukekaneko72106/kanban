@@ -10,9 +10,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, resolve_url
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView, CreateView
 
-from .forms import UserForm
+from django.urls import reverse_lazy
+from .models import List
+
+from .forms import UserForm, ListForm
 from .mixins import OnlyYouMixin
 
 #render(request, template_name, context)はテンプレートに値（変数）を埋め込んだ結果をHttpResponseに変換する関数
@@ -58,5 +61,17 @@ class UserUpdateView(OnlyYouMixin,UpdateView):
 
     def get_success_url(self):
         return resolve_url('kanban:users_detail', pk=self.kwargs['pk'])
+
+
+
+class ListCreateView(LoginRequiredMixin, CreateView):
+    model = List
+    template_name = "kanban/lists/create.html"
+    form_class = ListForm
+    success_url = reverse_lazy("kanban:home")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
