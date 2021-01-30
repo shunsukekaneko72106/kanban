@@ -22,11 +22,11 @@ from django.shortcuts import render, redirect, resolve_url
 from django.views.generic import DetailView, UpdateView, CreateView, ListView, DeleteView
 
 from django.urls import reverse_lazy
-from .models import List
 
-from .forms import UserForm, ListForm
+
+from .forms import UserForm, ListForm, CardForm
 from .mixins import OnlyYouMixin
-
+from .models import List, Card
 
 # render(request, template_name, context)はテンプレートに値（変数）を埋め込んだ結果をHttpResponseに変換する関数
 
@@ -117,3 +117,14 @@ class ListDeleteView(LoginRequiredMixin, DeleteView):
     form_class = ListForm
     success_url = reverse_lazy("kanban:lists_list")
 
+
+"""カード作成クラス"""
+class CardCreateView(LoginRequiredMixin, CreateView):
+    model = Card
+    template_name = "kanban/cards/create.html"
+    form_class = CardForm
+    success_url = reverse_lazy("kanban:home")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
