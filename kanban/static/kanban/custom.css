@@ -10,3 +10,13 @@ body {
   width: 240px;
   height: 100%;
 }
+
+main {
+  background-color: #EEFFFF;
+  height: 100%;
+}
+.navbar {
+  color: #00008B;
+}
+
+
