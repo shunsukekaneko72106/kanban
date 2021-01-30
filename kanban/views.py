@@ -2,6 +2,15 @@
 テンプレートをビューで指定する
 django.shortcuts MVCの複数のレベルを「橋渡し」するためのヘルパ関数やクラスを定義
 
+
+汎用クラスビュー:役割
+TemplateView:単純にテンプレートを表示するビュー
+ListView:モデルのデータを一覧表示するビュー
+DetailView:モデルのデータを個別に詳細表示するビュー
+CreateView:モデルにデータを追加するビュー
+UpdateView:モデルのデータを更新するビュー
+DeleteView:モデルのデータを削除するビュー
+
 """
 
 from django.contrib.auth import login
@@ -10,7 +19,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, resolve_url
-from django.views.generic import DetailView, UpdateView, CreateView, ListView
+from django.views.generic import DetailView, UpdateView, CreateView, ListView, DeleteView
 
 from django.urls import reverse_lazy
 from .models import List
@@ -99,3 +108,12 @@ class ListUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return resolve_url('kanban:lists_detail', pk=self.kwargs['pk'])
+
+
+"""リスト削除クラス"""
+class ListDeleteView(LoginRequiredMixin, DeleteView):
+    model = List
+    template_name = "kanban/lists/delete.html"
+    form_class = ListForm
+    success_url = reverse_lazy("kanban:lists_list")
+

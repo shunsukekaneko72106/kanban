@@ -17,6 +17,7 @@ urlpatterns = [
     path("lists/create/", views.ListCreateView.as_view(), name="lists_create"),
     path("lists/<int:pk>/", views.ListDetailView.as_view(), name="lists_detail"),
     path("lists/<int:pk>/update/", views.ListUpdateView.as_view(), name="lists_update"),
+    path("lists/<int:pk>/delete/", views.ListDeleteView.as_view(), name="lists_delete"),
 
 
 ]
