@@ -78,6 +78,7 @@ class ListCreateView(LoginRequiredMixin, CreateView):
 
 """リストのクラス"""
 
+
 class ListListView(LoginRequiredMixin, ListView):
     model = List
     template_name = "kanban/lists/list.html"
@@ -85,6 +86,16 @@ class ListListView(LoginRequiredMixin, ListView):
 
 """リスト詳細クラス"""
 
+
 class ListDetailView(LoginRequiredMixin, DetailView):
     model = List
     template_name = "kanban/lists/detail.html"
+
+"""リスト編集クラス"""
+class ListUpdateView(LoginRequiredMixin, UpdateView):
+    model = List
+    template_name = "kanban/lists/update.html"
+    form_class = ListForm
+
+    def get_success_url(self):
+        return resolve_url('kanban:lists_detail', pk=self.kwargs['pk'])
