@@ -1,0 +1,15 @@
+<!--
+ボード編集ページ 20210131 新規作成
+
+-->
+
+{% extends "kanban/base.html" %}
+
+{% block content %}
+<h3>ボード編集</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">送信</button>
+  </form>
+{% endblock %}

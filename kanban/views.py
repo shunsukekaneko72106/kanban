@@ -2,6 +2,9 @@
 テンプレートをビューで指定する
 django.shortcuts MVCの複数のレベルを「橋渡し」するためのヘルパ関数やクラスを定義
 
+ボードを追加
+
+
 
 汎用クラスビュー:役割
 TemplateView:単純にテンプレートを表示するビュー
@@ -23,9 +26,9 @@ from django.views.generic import DetailView, UpdateView, CreateView, ListView, D
 
 from django.urls import reverse_lazy
 
-from .forms import UserForm, ListForm, CardForm, CardCreateFromHomeForm
+from .forms import UserForm, ListForm, CardForm, CardCreateFromHomeForm, BoradForm
 from .mixins import OnlyYouMixin
-from .models import List, Card
+from .models import List, Card, Board
 
 
 # render(request, template_name, context)はテンプレートに値（変数）を埋め込んだ結果をHttpResponseに変換する関数
@@ -86,24 +89,18 @@ class ListCreateView(LoginRequiredMixin, CreateView):
 
 
 """リストのクラス"""
-
-
 class ListListView(LoginRequiredMixin, ListView):
     model = List
     template_name = "kanban/lists/list.html"
 
 
 """リスト詳細クラス"""
-
-
 class ListDetailView(LoginRequiredMixin, DetailView):
     model = List
     template_name = "kanban/lists/detail.html"
 
 
 """リスト編集クラス"""
-
-
 class ListUpdateView(LoginRequiredMixin, UpdateView):
     model = List
     template_name = "kanban/lists/update.html"
@@ -112,8 +109,6 @@ class ListUpdateView(LoginRequiredMixin, UpdateView):
 
 
 """リスト削除クラス"""
-
-
 class ListDeleteView(LoginRequiredMixin, DeleteView):
     model = List
     template_name = "kanban/lists/delete.html"
@@ -145,8 +140,6 @@ class CardDetailView(LoginRequiredMixin, DetailView):
 
 
 """カード編集クラス"""
-
-
 class CardUpdateView(LoginRequiredMixin, UpdateView):
     model = Card
     template_name = "kanban/cards/update.html"
@@ -155,8 +148,6 @@ class CardUpdateView(LoginRequiredMixin, UpdateView):
 
 
 """カード削除クラス"""
-
-
 class CardDeleteView(LoginRequiredMixin, DeleteView):
     model = Card
     template_name = "kanban/cards/delete.html"
@@ -176,3 +167,42 @@ class CardCreateFromHomeView(LoginRequiredMixin, CreateView):
         form.instance.list = list_instance
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+"""ボード作成クラス"""
+class BoardCreateView(LoginRequiredMixin, CreateView):
+    model = Board
+    template_name = "kanban/boards/create.html"
+    form_class = BoradForm
+    success_url = reverse_lazy("kanban:boards_list")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+"""ボード一覧クラス"""
+class BoardListView(LoginRequiredMixin, ListView):
+    model = Board
+    template_name = "kanban/boards/list.html"
+
+"""ボード詳細クラス"""
+class BoardDetailView(LoginRequiredMixin, DetailView):
+    model = Board
+    template_name = "kanban/boards/detail.html"
+
+"""ボード編集クラス"""
+class BoardUpdateView(LoginRequiredMixin, UpdateView):
+    model = Board
+    template_name = "kanban/boards/update.html"
+    form_class = BoradForm
+
+    def get_success_url(self):
+        return resolve_url('kanban:boards_detail', pk=self.kwargs['pk'])
+
+"""ボード削除クラス"""
+class BoardDeleteView(LoginRequiredMixin, DeleteView):
+    model = Board
+    template_name = "kanban/boards/delete.html"
+    form_class = BoradForm
+    success_url = reverse_lazy("kanban:boards_list")
+

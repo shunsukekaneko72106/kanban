@@ -1,10 +1,15 @@
-"""フォームのファイル作成"""
+"""
+フォームのファイル作成
+
+ボードのフォームを追加
+
+"""
 
 
 from django import forms
 from django.contrib.auth.models import User
-
-from .models import List, Card
+#ボードを追加
+from .models import List, Card, Board
 
 
 class UserForm(forms.ModelForm):
@@ -66,4 +71,11 @@ class CardUpdateForm(forms.ModelForm):
         model = Card
         fields = ("title", "description", "list")
 
+
+"""ボードクラス"""
+class BoradForm(forms.ModelForm):
+
+    class Meta:
+        model = Board
+        fields = ("title",)
 

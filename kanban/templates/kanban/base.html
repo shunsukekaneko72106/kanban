@@ -17,13 +17,13 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top p-1" style="background-color:#006699;" >
 
         <!-- ここからif文で分岐 -->
         {% if request.user.is_authenticated %}
-        <a class="navbar-brand" href="{% url 'kanban:home' %}">kanban</a>
+        <a class="navbar-brand"  style="font-family:cursive;" href="{% url 'kanban:home' %}">kanban</a>
         {% else %}
-        <a class="navbar-brand" href="{% url 'kanban:index' %}">kanban</a>
+        <a class="navbar-brand" style="font-family:cursive;" href="{% url 'kanban:index' %}">kanban</a>
         {% endif %}
         <!-- ここまでif文で分岐 -->
 
@@ -36,18 +36,18 @@
           <ul class="navbar-nav">
             {% if request.user.is_authenticated %}
             <li class="nav-item">
+              <a class="nav-link" href="{% url 'kanban:boards_list' %}">ボード一覧</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'kanban:users_detail' request.user.pk %}">{{ request.user.username }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'kanban:lists_list' %}">リスト一覧</a>
             </li>
 
-            <!-- ここから追記 -->
             <li class="nav-item">
               <a class="nav-link" href="{% url 'kanban:cards_list' %}">カード一覧</a>
             </li>
-            <!-- ここまで追記 -->
-
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">ログアウト</a>
             </li>
