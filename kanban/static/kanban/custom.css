@@ -15,8 +15,8 @@ main {
   background-color: #EEFFFF;
   height: 100%;
 }
-.navbar {
-  color: #00008B;
-}
 
+.navbar-brand {
+  color: red;
+}
 
