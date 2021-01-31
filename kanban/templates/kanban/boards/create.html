@@ -1,0 +1,19 @@
+<!--
+ボード作成ページ 20210130 新規作成
+
+-->
+
+
+{% extends "kanban/base.html" %}
+
+{% block content %}
+<div class="container">
+  <h3>ボードタイトルを追加</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">ボードを作成</button>
+  </form>
+</div>
+{% endblock %}
+

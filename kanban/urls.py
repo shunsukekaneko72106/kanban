@@ -1,4 +1,8 @@
-"""ルーティングの設定"""
+"""
+ルーティングの設定
+
+ボードの追加
+"""
 
 
 from django.urls import path
@@ -24,6 +28,7 @@ urlpatterns = [
     path("cards/<int:pk>/update/", views.CardUpdateView.as_view(), name="cards_update"),
     path("cards/<int:pk>/delete/", views.CardDeleteView.as_view(), name="cards_delete"),
     path("cards/create/<int:list_pk>", views.CardCreateFromHomeView.as_view(), name="cards_create_from_home"),
+    path("boards/create/", views.BoardCreateView.as_view(), name="boards_create"),
 
 ]
 
