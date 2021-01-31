@@ -14,7 +14,7 @@
     <dt class="col-sm-3">ユーザー名</dt>
     <dd class="col-sm-9">{{ list.user.username }}</dd>
   </dl>
-  <a class="btn btn-primary" href="{% url 'kanban:boards_update' list.pk  %}" role="button">編集</a>
+  <a class="btn btn-primary" href="{% url 'kanban:boards_update' board.pk  %}" role="button">編集</a>
 </div>
 
 {% endblock %}

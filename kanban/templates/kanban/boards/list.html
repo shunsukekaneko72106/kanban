@@ -1,6 +1,7 @@
 <!--
 ボードリスト ページ 20210131 新規作成
 
+ list.pk pkとはプライマリーキーでdbを指定するとエラーが治った
 -->
 
 
@@ -8,17 +9,16 @@
 
 {% block content %}
 <div class="container">
-  <h3>ボード一覧</h3>
+  <h5>kanbanワークスペース</h5>
+  <a class="btn btn-primary my-3" href="{% url 'kanban:boards_create' %}" role="button">作成</a>
   <div class="card-columns">
     {% for board in board_list %}
-    <div class="card">
+
+    <a href="{% url 'kanban:boards_detail' board.pk %}" class="card">
       <div class="card-body">
         <h5 class="card-title">{{ board.title }}</h5>
-        <footer>
-          <small class="text-muted">作成者: {{ board.user.username }}</small>
-        </footer>
       </div>
-    </div>
+    </a>
     {% endfor %}
   </div>
 </div>
