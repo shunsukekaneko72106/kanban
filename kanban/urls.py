@@ -32,6 +32,7 @@ urlpatterns = [
     path("boards/", views.BoardListView.as_view(), name="boards_list"),
     path("boards/<int:pk>/", views.BoardDetailView.as_view(), name="boards_detail"),
     path("boards/<int:pk>/update/", views.BoardUpdateView.as_view(), name="boards_update"),
+    path("boards/<int:pk>/delete/", views.BoardDeleteView.as_view(), name="boards_delete"),
 
 
 ]

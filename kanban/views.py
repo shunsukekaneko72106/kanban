@@ -198,3 +198,11 @@ class BoardUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return resolve_url('kanban:boards_detail', pk=self.kwargs['pk'])
+
+"""ボード削除クラス"""
+class BoardDeleteView(LoginRequiredMixin, DeleteView):
+    model = Board
+    template_name = "kanban/boards/delete.html"
+    form_class = BoradForm
+    success_url = reverse_lazy("kanban:boards_list")
+
