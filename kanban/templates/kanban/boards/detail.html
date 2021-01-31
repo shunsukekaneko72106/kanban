@@ -1,0 +1,20 @@
+<!--
+ボード詳細ページ 20210131 新規作成
+
+-->
+
+{% extends "kanban/base.html" %}
+
+{% block content %}
+<div class="container">
+  <h3>ボード詳細</h3>
+  <dl class="row">
+    <dt class="col-sm-3">タイトル</dt>
+    <dd class="col-sm-9">{{ board.title }}</dd>
+    <dt class="col-sm-3">ユーザー名</dt>
+    <dd class="col-sm-9">{{ list.user.username }}</dd>
+  </dl>
+  <a class="btn btn-primary" href="{% url 'kanban:boards_update' list.pk  %}" role="button">編集</a>
+</div>
+
+{% endblock %}

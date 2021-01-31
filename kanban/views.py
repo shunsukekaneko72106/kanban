@@ -174,9 +174,27 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
     model = Board
     template_name = "kanban/boards/create.html"
     form_class = BoradForm
-    success_url = reverse_lazy("kanban:home")
+    success_url = reverse_lazy("kanban:boards_list")
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+"""ボード一覧クラス"""
+class BoardListView(LoginRequiredMixin, ListView):
+    model = Board
+    template_name = "kanban/boards/list.html"
+
+"""ボード詳細クラス"""
+class BoardDetailView(LoginRequiredMixin, DetailView):
+    model = Board
+    template_name = "kanban/boards/detail.html"
+
+"""ボード編集クラス"""
+class BoardUpdateView(LoginRequiredMixin, UpdateView):
+    model = Board
+    template_name = "kanban/boards/update.html"
+    form_class = BoradForm
+
+    def get_success_url(self):
+        return resolve_url('kanban:boards_detail', pk=self.kwargs['pk'])

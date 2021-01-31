@@ -36,18 +36,18 @@
           <ul class="navbar-nav">
             {% if request.user.is_authenticated %}
             <li class="nav-item">
+              <a class="nav-link" href="{% url 'kanban:boards_list' %}">ボード一覧</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'kanban:users_detail' request.user.pk %}">{{ request.user.username }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'kanban:lists_list' %}">リスト一覧</a>
             </li>
 
-            <!-- ここから追記 -->
             <li class="nav-item">
               <a class="nav-link" href="{% url 'kanban:cards_list' %}">カード一覧</a>
             </li>
-            <!-- ここまで追記 -->
-
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">ログアウト</a>
             </li>

@@ -29,6 +29,10 @@ urlpatterns = [
     path("cards/<int:pk>/delete/", views.CardDeleteView.as_view(), name="cards_delete"),
     path("cards/create/<int:list_pk>", views.CardCreateFromHomeView.as_view(), name="cards_create_from_home"),
     path("boards/create/", views.BoardCreateView.as_view(), name="boards_create"),
+    path("boards/", views.BoardListView.as_view(), name="boards_list"),
+    path("boards/<int:pk>/", views.BoardDetailView.as_view(), name="boards_detail"),
+    path("boards/<int:pk>/update/", views.BoardUpdateView.as_view(), name="boards_update"),
+
 
 ]
 
